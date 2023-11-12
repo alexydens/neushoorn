@@ -1,0 +1,6 @@
+gcc
+-Wall
+-Wextra
+-Wno-unused-variable
+-ansi
+-pedantic
