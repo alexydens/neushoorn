@@ -1,12 +1,17 @@
-Current task list:
+# Current task list:
 - Some basic file I/O for shaders.
 - Shader + texture code.
 - Obj parser.
 - RenderObject code.
 - test, then basic scene?
 
+# Other stuff to do:
+- Add comments to the .c files (I should really do this as I go.
+- Add Windows and (maybe) MacOS support (otherwise what was the point of those
+  macros). This can take the form of a batch file for windows, and I'm not sure
+  what for MacOS. I've never even used it.
 
-Features to implement:
+# Features to implement:
 - Fixed point numbers.
 - Strings as structures with char* and size.
 - Dynamic arrays
@@ -17,13 +22,13 @@ Features to implement:
   actual implementation using -E flag.
 - Metaprogramming - think about, not use necessarily - or maybe provide an
   interface to use it for other projects. Article on how to implement something
-  like this: https://www.rfleury.com/p/table-driven-code-generation
+  like [this](https://www.rfleury.com/p/table-driven-code-generation)
 
-In progress:
+# In progress:
 - Platform layers to handle windowing, colored text, socket programming, etc.
 - Graphics API abstractions: Software renderer, OpenGL, Vulkan.
 
-Done:
+# Done:
 - Matrices - at least mat4, for 3d graphics purposes.
 - Custom allocators:
     +-> Chunk allocator
