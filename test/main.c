@@ -1,3 +1,4 @@
+#if 1
 #include <neushoorn/base.h>
 #include <neushoorn/logging.h>
 #include <neushoorn/window.h>
@@ -6,7 +7,7 @@
 
 void resize_callback(u32 w, u32 h, void* win) {
   Window* window = win;
-  nh_info("Window resized to: %d, %d", w, h);
+  /* nh_info("Window resized to: %d, %d", w, h); */
   makeCurrent(window);
   glViewport(0, 0, w, h);
 }
@@ -38,17 +39,20 @@ i32 main() {
   WindowQuit();
   return 0;
 }
+#endif
 
-
-#ifdef RANDOM_NAME_THAT_ISNT_DEFINED
+#if 0
 /* Base library */
 #include <neushoorn/base.h>         /* Core */
 #include <neushoorn/arena_alloc.h>  /* Linear allocator */
 #include <neushoorn/logging.h>      /* Logger */
+#include <neushoorn/file_io.h>      /* File handling */
 
 #include <stdio.h>
 #include <string.h>
 #define EVAL_BOOL(EXPR) nh_info("%s = %s", #EXPR, (EXPR) ? "true" : "false");
+
+#define DONT_TEST_LOGGING
 
 i32 main() {
   /* base.h */
@@ -111,6 +115,11 @@ i32 main() {
   nh_error("Testing error...");
   nh_fatal("Testing fatal...");
 #endif
+  {
+    Arena arena = create_arena(9000);
+    const char* string = read_file(&arena, "src/base.h");
+    nh_info("Contents of base.h:\n%s", string);
+  }
   return 0;
 }
 #endif

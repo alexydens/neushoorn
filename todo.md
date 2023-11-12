@@ -1,5 +1,4 @@
 # Current task list:
-- Some basic file I/O for shaders.
 - Shader + texture code.
 - Obj parser.
 - RenderObject code.
@@ -29,6 +28,7 @@
 - Graphics API abstractions: Software renderer, OpenGL, Vulkan.
 
 # Done:
+- Some basic file I/O for shaders.
 - Matrices - at least mat4, for 3d graphics purposes.
 - Custom allocators:
     +-> Chunk allocator
