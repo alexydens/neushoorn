@@ -22,7 +22,7 @@
   actual implementation using -E flag.
 - Metaprogramming - think about, not use necessarily - or maybe provide an
   interface to use it for other projects. Article on how to implement something
-  like [this](https://www.rfleury.com/p/table-driven-code-generation)
+  like [this](https://www.rfleury.com/p/table-driven-code-generation).
 
 # In progress:
 - Platform layers to handle windowing, colored text, socket programming, etc.
