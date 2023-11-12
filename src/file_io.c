@@ -23,8 +23,8 @@ const char* read_file(Arena* arena, const char* path) {
   fclose(ptr);
   str[length-1] = '\0';
 
-  strOut = arena_alloc(arena, strlen(str));
-  strcpy(strOut, str);
+  strOut = arena_alloc(arena, length);
+  memcpy(strOut, str, length);
   free(str);
 
   return strOut;

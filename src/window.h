@@ -6,6 +6,10 @@
 #include "base.h"
 #include "arena_alloc.h"
 
+/* OpenGL */
+#include <GLES3/gl3.h>
+#include <GL/gl.h>
+
 /* Scancodes */
 #define KEY_A               0
 #define KEY_B               1

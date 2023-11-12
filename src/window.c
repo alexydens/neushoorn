@@ -76,6 +76,10 @@ void initGL(Window* window) {
   RenderState* renderState = arena_alloc(&window->arena, sizeof(RenderState));
   renderState->gl_context = SDL_GL_CreateContext(windowState->handle);
   windowState->opengl = true;
+  glEnable(GL_DEPTH_TEST);
+#if defined(DEBUG)
+  glEnable(GL_DEBUG_OUTPUT);
+#endif
 }
 void quitGL(Window* window) {
   RenderState* renderState =

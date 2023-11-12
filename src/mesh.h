@@ -23,8 +23,9 @@ typedef struct {
   u32 numAttribs;   /* How many vertex attributes */
 } MeshCreateInfo;
 
-/* Creation and destruction of Mesh */
+/* Create a mesh */
 Mesh createMesh(MeshCreateInfo createInfo);
+/* Destroy a mesh */
 void destroyMesh(Mesh* mesh);
 
 /* Draw the mesh */

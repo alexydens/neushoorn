@@ -2,6 +2,8 @@
 #include <neushoorn/base.h>
 #include <neushoorn/logging.h>
 #include <neushoorn/window.h>
+#include <neushoorn/shader.h>
+#include <neushoorn/mesh.h>
 
 #include <GLES3/gl3.h>
 
@@ -11,6 +13,16 @@ void resize_callback(u32 w, u32 h, void* win) {
   makeCurrent(window);
   glViewport(0, 0, w, h);
 }
+
+ShaderHandle shader;
+Mesh mesh;
+
+float vertices[] = {
+  -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
+   0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
+   0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f,
+}; 
+u32 attribs[] = { 3, 3 };
 
 i32 main() {
   Window window;
@@ -22,6 +34,18 @@ i32 main() {
   makeCurrent(&window);
   glViewport(0, 0, window.width, window.height);
   ppWindows[0] = &window;
+
+  shader = createShader("assets/test.vert", "assets/test.frag");
+
+  {
+    MeshCreateInfo createInfo;
+    createInfo.attribs = attribs;
+    createInfo.numAttribs = 2;
+    createInfo.vertices = vertices;
+    createInfo.numVertices = 3;
+    mesh = createMesh(createInfo);
+  }
+
   while (window.running) {
     bool* keyboard_state;
     updateWindows(ppWindows, 1);
@@ -31,11 +55,17 @@ i32 main() {
 
     if (keyboard_state[KEY_A]) glClearColor(0.3f, 0.5f, 1.0f, 1.0f);
     else glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    bindShader(shader);
+    drawMesh(&mesh);
+
     presentGL(&window);
 
     }
   }
+  destroyMesh(&mesh);
+  destroyShader(shader);
   WindowQuit();
   return 0;
 }
