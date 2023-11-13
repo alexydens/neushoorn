@@ -17,7 +17,7 @@
 
 /* If debug defined */
 #if defined(DEBUG)
-#   define(ENABLE_ASSERT)
+#   define ENABLE_ASSERT
 #endif
 
 /*

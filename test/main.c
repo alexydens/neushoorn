@@ -1,9 +1,7 @@
-#if 1
 #include <neushoorn/base.h>
 #include <neushoorn/logging.h>
 #include <neushoorn/window.h>
-#include <neushoorn/shader.h>
-#include <neushoorn/mesh.h>
+#include <neushoorn/object.h>
 
 #include <GLES3/gl3.h>
 
@@ -14,15 +12,33 @@ void resize_callback(u32 w, u32 h, void* win) {
   glViewport(0, 0, w, h);
 }
 
-ShaderHandle shader;
-Mesh mesh;
+/* Camera */
+v3f32 cameraPos    = { 0.0f, 0.0f,  3.0f };
+v3f32 cameraFront  = { 0.0f, 0.0f, -1.0f };
+v3f32 cameraUp     = { 0.0f, 1.0f,  0.0f };
+f32 pitch = 0.0f;
+f32 yaw   = -90.0f;
+v3f32 cameraVelocity = { 0.0f, 0.0f, 0.0f };
 
-float vertices[] = {
-  -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
-   0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
-   0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f,
-}; 
-u32 attribs[] = { 3, 3 };
+/* Texture info */
+const char* t_names[2] = { "tex", "normals" };
+const char* t_paths[2] = { "assets/basecolor.jpg", "assets/normal.jpg" };
+const char* t_paths2[2] = { "assets/basecolor2.png", "assets/normal2.png" };
+
+/* Objects */
+Object suzanne;
+Object scene;
+
+/* Matrices */
+m4f32 view;
+m4f32 projection;
+
+/* Timing */
+u32 ticks = 0;
+
+/* Toggle-able things */
+bool wireframeMode = false;
+bool gammaCorrection = false;
 
 i32 main() {
   Window window;
@@ -35,15 +51,26 @@ i32 main() {
   glViewport(0, 0, window.width, window.height);
   ppWindows[0] = &window;
 
-  shader = createShader("assets/test.vert", "assets/test.frag");
-
-  {
-    MeshCreateInfo createInfo;
-    createInfo.attribs = attribs;
-    createInfo.numAttribs = 2;
-    createInfo.vertices = vertices;
-    createInfo.numVertices = 3;
-    mesh = createMesh(createInfo);
+  /* Create Objects */
+  { /* Suzanne */
+    ObjectCreateInfo createInfo;
+    createInfo.frag_path = "assets/main.frag";
+    createInfo.vert_path = "assets/main.vert";
+    createInfo.texture_names = (char**)t_names;
+    createInfo.texture_paths = (char**)t_paths2;
+    createInfo.numTextures = 2;
+    createInfo.obj_path = "assets/suzanne.obj";
+    suzanne = createObject(createInfo);
+  }
+  { /* Scene */
+    ObjectCreateInfo createInfo;
+    createInfo.frag_path = "assets/main.frag";
+    createInfo.vert_path = "assets/main.vert";
+    createInfo.texture_names = (char**)t_names;
+    createInfo.texture_paths = (char**)t_paths;
+    createInfo.numTextures = 2;
+    createInfo.obj_path = "assets/scene.obj";
+    scene = createObject(createInfo);
   }
 
   while (window.running) {
@@ -53,103 +80,130 @@ i32 main() {
     keyboard_state = getKeyboardState();
     if (window.running) {
 
-    if (keyboard_state[KEY_A]) glClearColor(0.3f, 0.5f, 1.0f, 1.0f);
-    else glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    bindShader(shader);
-    drawMesh(&mesh);
+    /* Process keyboard input */
+    if (keyboard_state[KEY_1]) wireframeMode = true;
+    if (keyboard_state[KEY_1] && keyboard_state[KEY_RSHIFT])
+      wireframeMode = false;
+    if (keyboard_state[KEY_2]) gammaCorrection = true;
+    if (keyboard_state[KEY_2] && keyboard_state[KEY_RSHIFT])
+      gammaCorrection = false;
+    if (wireframeMode)
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    if (gammaCorrection)
+      glEnable(GL_FRAMEBUFFER_SRGB);
+    else
+      glDisable(GL_FRAMEBUFFER_SRGB);
+
+    if (keyboard_state[KEY_W]) {
+      v3f32 tmp;
+      v3f32 front2 = { 0.0f, 0.0f, 0.0f };
+      front2.x = cameraFront.x;
+      front2.z = cameraFront.z;
+      tmp = scale_v3f32(front2, 0.0025f);
+      cameraVelocity = add_v3f32(cameraVelocity, tmp);
+    }
+    if (keyboard_state[KEY_S]) {
+      v3f32 tmp;
+      v3f32 front2 = { 0.0f, 0.0f, 0.0f };
+      front2.x = cameraFront.x;
+      front2.z = cameraFront.z;
+      tmp = scale_v3f32(front2, 0.0025f);
+      cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
+    }
+    if (keyboard_state[KEY_A]) {
+      v3f32 tmp;
+      v3f32 front2 = { 0.0f, 0.0f, 0.0f };
+      front2.x = cameraFront.x;
+      front2.z = cameraFront.z;
+      tmp = cross_v3f32(front2, cameraUp);
+      tmp = normalize_v3f32(tmp);
+      tmp = scale_v3f32(tmp, 0.0025f);
+      cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
+    }
+    if (keyboard_state[KEY_D]) {
+      v3f32 tmp;
+      v3f32 front2 = { 0.0f, 0.0f, 0.0f };
+      front2.x = cameraFront.x;
+      front2.z = cameraFront.z;
+      tmp = cross_v3f32(front2, cameraUp);
+      tmp = normalize_v3f32(tmp);
+      tmp = scale_v3f32(tmp, 0.0025f);
+      cameraVelocity = add_v3f32(cameraVelocity, tmp);
+    }
+    if (keyboard_state[KEY_LEFT]) yaw -= 0.3f;
+    if (keyboard_state[KEY_RIGHT]) yaw += 0.3f;
+    if (keyboard_state[KEY_UP]) pitch -= 0.3f;
+    if (keyboard_state[KEY_DOWN]) pitch += 0.3f;
+    if (pitch < -89.9f) pitch = -89.9f;
+    if (pitch > 89.9f) pitch = 89.9f;
+    if (keyboard_state[KEY_SPACE])
+      cameraVelocity.y += 0.005f;
+    if (keyboard_state[KEY_LSHIFT])
+      cameraVelocity.y -= 0.005f;
+    {
+      v3f32 tmp;
+      tmp = scale_v3f32(cameraVelocity, 0.2f);
+      cameraPos = add_v3f32(cameraPos, tmp);
+    }
+    cameraVelocity.x /= 1.015f;
+    cameraVelocity.y /= 1.015f;
+    cameraVelocity.z /= 1.015f;
+
+    /* Update model view projection */
+    /* model */
+    suzanne.model = identity_m4f32();
+    {
+      m4f32 translation;
+      m4f32 rotation;
+      translation = translation_m4f32(0.0f, 0.75f, 0.0f);
+      rotation = rotationY_m4f32(ticks / 5000.0f);
+      suzanne.model = multiply_m4f32(rotation, translation);
+    }
+    scene.model = identity_m4f32();
+    {
+      m4f32 translation;
+      m4f32 rotation;
+      translation = translation_m4f32(0.0f, -0.5f, 0.0f);
+      rotation = rotationY_m4f32(270.0f * (pi32 / 180.0f));
+      scene.model = multiply_m4f32(translation, rotation);
+    }
+    /* view */
+    {
+      v3f32 tmp;
+      tmp = add_v3f32(cameraPos, cameraFront);
+      view = lookAt_m4f32(cameraPos, tmp, cameraUp);
+    }
+    {
+      v3f32 direction;
+      direction.x = cos(yaw * (pi32 / 180.0f)) * cos(pitch * (pi32 / 180.0f));
+      direction.y = sin(pitch * (pi32 / 180.0f));
+      direction.z = sin(yaw * (pi32 / 180.0f)) * cos(pitch * (pi32 / 180.0f));
+      cameraFront = normalize_v3f32(direction);
+    }
+    /* projection */
+    projection = perspectiveProjection_m4f32(
+        60.0f,
+        (f32)window.width / window.height,
+        0.1f, 100.0f
+    );
+
+    /* Draw scene */
+    drawObject(&suzanne, view, projection, cameraPos);
+    drawObject(&scene, view, projection, cameraPos);
 
     presentGL(&window);
+    ticks++;
 
     }
   }
-  destroyMesh(&mesh);
-  destroyShader(shader);
+  /* Destroy objects */
+  destroyObject(&suzanne);
+  destroyObject(&scene);
   WindowQuit();
   return 0;
 }
-#endif
-
-#if 0
-/* Base library */
-#include <neushoorn/base.h>         /* Core */
-#include <neushoorn/arena_alloc.h>  /* Linear allocator */
-#include <neushoorn/logging.h>      /* Logger */
-#include <neushoorn/file_io.h>      /* File handling */
-
-#include <stdio.h>
-#include <string.h>
-#define EVAL_BOOL(EXPR) nh_info("%s = %s", #EXPR, (EXPR) ? "true" : "false");
-
-#define DONT_TEST_LOGGING
-
-i32 main() {
-  /* base.h */
-#if !defined(DONT_TEST_BASE)
-  { /* Operating system */
-    bool os_linux = OS_LINUX;
-    bool os_windows = OS_WINDOWS;
-    bool os_macos = OS_MACOS;
-    EVAL_BOOL(os_linux);
-    EVAL_BOOL(os_windows);
-    EVAL_BOOL(os_macos);
-    printf("\n");
-  }
-  { /* System architecture */
-    bool cpu_arm = CPU_ARM;
-    bool cpu_arm64 = CPU_ARM64;
-    bool cpu_x86 = CPU_X86;
-    bool cpu_x86_64 = CPU_X86_64;
-    EVAL_BOOL(cpu_arm);
-    EVAL_BOOL(cpu_arm64);
-    EVAL_BOOL(cpu_x86);
-    EVAL_BOOL(cpu_x86_64);
-    printf("\n");
-  }
-  { /* Helper macros */
-    /* Clamp */
-    ASSERT(CLAMP(10, 0, 5) == 5);
-    ASSERT(CLAMP(-3, 0, 5) == 0);
-    ASSERT(CLAMP(3, 0, 5) == 3); 
-    { /* Swap */
-      i32 a = 0;
-      i32 b = 1;
-      SWAP(a, b);
-      ASSERT(a);
-    }
-    /* Min */
-    ASSERT(MIN(10, 0) == 0);
-    ASSERT(MIN(0, 10) == 0);
-    /* Max */
-    ASSERT(MAX(10, 0) == 10);
-    ASSERT(MAX(0, 10) == 10);
-    { /* Arrlen */
-      u32 arr[8];
-      ASSERT(ARRLEN(arr) == 8);
-    }
-    /* Strfrom */
-    ASSERT(strcmp("hello", STRFROM(hello)) == 0);
-    /* Concat */
-    ASSERT(CONCAT(tr, ue));
-  }
-#endif
-  /* arena_alloc.h */
-#if !defined (DONT_TEST_ARENA_ALLOC)
-  /**/
-#endif
-  /* logging.h */
-#if !defined (DONT_TEST_LOGGING)
-  nh_info("Testing info...");
-  nh_warn("Testing warn...");
-  nh_error("Testing error...");
-  nh_fatal("Testing fatal...");
-#endif
-  {
-    Arena arena = create_arena(9000);
-    const char* string = read_file(&arena, "src/base.h");
-    nh_info("Contents of base.h:\n%s", string);
-  }
-  return 0;
-}
-#endif

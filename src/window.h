@@ -11,6 +11,7 @@
 #include <GL/gl.h>
 
 /* Scancodes */
+#define NUM_KEYS 47
 #define KEY_A               0
 #define KEY_B               1
 #define KEY_C               2
@@ -56,6 +57,11 @@
 #define KEY_SPACE           40
 #define KEY_TAB             41
 #define KEY_ENTER           42
+
+#define KEY_UP              43
+#define KEY_DOWN            44
+#define KEY_LEFT            45
+#define KEY_RIGHT           46
 
 /* Maximum size of a window's internal state */
 #define WINDOW_STATE_SIZE 1024 * 2   /* The state must not exceed 2KiB */

@@ -8,7 +8,6 @@
  * - WindowState
  * - RenderState
  */
-#define NUM_KEYS 43
 bool keyboardState[NUM_KEYS];
 const u8* sdl_keys;
 
@@ -175,6 +174,11 @@ void updateKeyboardState() {
   keyboardState[KEY_SPACE] = sdl_keys[SDL_SCANCODE_SPACE];
   keyboardState[KEY_TAB] = sdl_keys[SDL_SCANCODE_TAB];
   keyboardState[KEY_ENTER] = sdl_keys[SDL_SCANCODE_RETURN];
+
+  keyboardState[KEY_UP] = sdl_keys[SDL_SCANCODE_UP];
+  keyboardState[KEY_DOWN] = sdl_keys[SDL_SCANCODE_DOWN];
+  keyboardState[KEY_LEFT] = sdl_keys[SDL_SCANCODE_LEFT];
+  keyboardState[KEY_RIGHT] = sdl_keys[SDL_SCANCODE_RIGHT];
 }
 bool* getKeyboardState() {
   return keyboardState;
