@@ -18,6 +18,7 @@ build:
 	gcc -c $(SRC_DIR)/file_io.c $(CFLAGS) -o $(BUILD_DIR)/file_io.o
 	gcc -c $(SRC_DIR)/window.c $(CFLAGS) -o $(BUILD_DIR)/window.o
 	gcc -c $(SRC_DIR)/shader.c $(CFLAGS) -o $(BUILD_DIR)/shader.o
+	gcc -c $(SRC_DIR)/texture.c $(CFLAGS) -o $(BUILD_DIR)/texture.o
 	gcc -c $(SRC_DIR)/mesh.c $(CFLAGS) -o $(BUILD_DIR)/mesh.o
 	echo "Archiving..."
 	ar rcs $(BUILD_DIR)/libneushoorn.a $(BUILD_DIR)/*.o
@@ -34,5 +35,5 @@ test:
 # If anyone is going to use this, feel free to add corefiles to the mix - it
 # just doesn't work for me on WSL2
 gdb:
-	gcc -g $(TEST_DIR)/main.c -o $(BUILD_DIR)/test_gdb -lneushoorn -lm -lSDL2 -lGL
+	gcc -g $(TEST_DIR)/main.c -o $(BUILD_DIR)/test_gdb -lSDL2 -lSDL2_image -lneushoorn -lm -lGL
 	gdb $(BUILD_DIR)/test_gdb
