@@ -90,7 +90,7 @@ v3i32 scale_v3i32(v3i32 v, i32 scale) {
   v3i32 res;
   res.x = v.x * scale;
   res.y = v.y * scale;
-  res.z = v.y * scale;
+  res.z = v.z * scale;
   return res;
 }
 v2f32 scale_v2f32(v2f32 v, f32 scale) {
@@ -103,7 +103,7 @@ v3f32 scale_v3f32(v3f32 v, f32 scale) {
   v3f32 res;
   res.x = v.x * scale;
   res.y = v.y * scale;
-  res.z = v.y * scale;
+  res.z = v.z * scale;
   return res;
 }
 
@@ -243,7 +243,7 @@ m4f32 lookAt_m4f32(v3f32 eye, v3f32 centre, v3f32 up) {
   s = cross_v3f32(f, up);
   s = normalize_v3f32(s);
 
-  u = cross_v3f32(f, s);
+  u = cross_v3f32(s, f);
 
   res.vals[0] = s.x;
   res.vals[1] = u.x;

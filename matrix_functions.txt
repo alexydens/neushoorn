@@ -1,6 +1,0 @@
-- identity
-- translation
-- rotation (axis angle)
-- multiply
-- look at
-- perspective projection

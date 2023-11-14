@@ -104,7 +104,7 @@ i32 main() {
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
-      tmp = scale_v3f32(front2, 0.0025f);
+      tmp = scale_v3f32(front2, 0.005f);
       cameraVelocity = add_v3f32(cameraVelocity, tmp);
     }
     if (keyboard_state[KEY_S]) {
@@ -112,7 +112,7 @@ i32 main() {
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
-      tmp = scale_v3f32(front2, 0.0025f);
+      tmp = scale_v3f32(front2, 0.005f);
       cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
     }
     if (keyboard_state[KEY_A]) {
@@ -122,7 +122,7 @@ i32 main() {
       front2.z = cameraFront.z;
       tmp = cross_v3f32(front2, cameraUp);
       tmp = normalize_v3f32(tmp);
-      tmp = scale_v3f32(tmp, 0.0025f);
+      tmp = scale_v3f32(tmp, 0.005f);
       cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
     }
     if (keyboard_state[KEY_D]) {
@@ -132,13 +132,13 @@ i32 main() {
       front2.z = cameraFront.z;
       tmp = cross_v3f32(front2, cameraUp);
       tmp = normalize_v3f32(tmp);
-      tmp = scale_v3f32(tmp, 0.0025f);
+      tmp = scale_v3f32(tmp, 0.005f);
       cameraVelocity = add_v3f32(cameraVelocity, tmp);
     }
-    if (keyboard_state[KEY_LEFT]) yaw -= 0.3f;
-    if (keyboard_state[KEY_RIGHT]) yaw += 0.3f;
-    if (keyboard_state[KEY_UP]) pitch -= 0.3f;
-    if (keyboard_state[KEY_DOWN]) pitch += 0.3f;
+    if (keyboard_state[KEY_LEFT]) yaw -= 0.5f;
+    if (keyboard_state[KEY_RIGHT]) yaw += 0.5f;
+    if (keyboard_state[KEY_UP]) pitch += 0.5f;
+    if (keyboard_state[KEY_DOWN]) pitch -= 0.5f;
     if (pitch < -89.9f) pitch = -89.9f;
     if (pitch > 89.9f) pitch = 89.9f;
     if (keyboard_state[KEY_SPACE])
@@ -161,7 +161,7 @@ i32 main() {
       m4f32 translation;
       m4f32 rotation;
       translation = translation_m4f32(0.0f, 0.75f, 0.0f);
-      rotation = rotationY_m4f32(ticks / 5000.0f);
+      rotation = rotationY_m4f32(ticks / 50.0f);
       suzanne.model = multiply_m4f32(rotation, translation);
     }
     scene.model = identity_m4f32();
