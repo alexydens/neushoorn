@@ -1,0 +1,3 @@
+- Centre mouse - warp mouse in window
+- Hide mouse - Show cursor SDL_DISABLE
+- Get mouse position - getmousestate

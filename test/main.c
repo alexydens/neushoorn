@@ -84,11 +84,11 @@ i32 main() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     /* Process keyboard input */
-    if (keyboard_state[KEY_1]) wireframeMode = true;
-    if (keyboard_state[KEY_1] && keyboard_state[KEY_RSHIFT])
+    if (keyboard_state[NH_KEY_1]) wireframeMode = true;
+    if (keyboard_state[NH_KEY_1] && keyboard_state[NH_KEY_RSHIFT])
       wireframeMode = false;
-    if (keyboard_state[KEY_2]) gammaCorrection = true;
-    if (keyboard_state[KEY_2] && keyboard_state[KEY_RSHIFT])
+    if (keyboard_state[NH_KEY_2]) gammaCorrection = true;
+    if (keyboard_state[NH_KEY_2] && keyboard_state[NH_KEY_RSHIFT])
       gammaCorrection = false;
     if (wireframeMode)
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -99,52 +99,52 @@ i32 main() {
     else
       glDisable(GL_FRAMEBUFFER_SRGB);
 
-    if (keyboard_state[KEY_W]) {
+    if (keyboard_state[NH_KEY_W]) {
       v3f32 tmp;
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
-      tmp = scale_v3f32(front2, 0.005f);
+      tmp = scale_v3f32(front2, 0.0025f);
       cameraVelocity = add_v3f32(cameraVelocity, tmp);
     }
-    if (keyboard_state[KEY_S]) {
+    if (keyboard_state[NH_KEY_S]) {
       v3f32 tmp;
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
-      tmp = scale_v3f32(front2, 0.005f);
+      tmp = scale_v3f32(front2, 0.0025f);
       cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
     }
-    if (keyboard_state[KEY_A]) {
+    if (keyboard_state[NH_KEY_A]) {
       v3f32 tmp;
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
       tmp = cross_v3f32(front2, cameraUp);
       tmp = normalize_v3f32(tmp);
-      tmp = scale_v3f32(tmp, 0.005f);
+      tmp = scale_v3f32(tmp, 0.0025f);
       cameraVelocity = subtract_v3f32(cameraVelocity, tmp);
     }
-    if (keyboard_state[KEY_D]) {
+    if (keyboard_state[NH_KEY_D]) {
       v3f32 tmp;
       v3f32 front2 = { 0.0f, 0.0f, 0.0f };
       front2.x = cameraFront.x;
       front2.z = cameraFront.z;
       tmp = cross_v3f32(front2, cameraUp);
       tmp = normalize_v3f32(tmp);
-      tmp = scale_v3f32(tmp, 0.005f);
+      tmp = scale_v3f32(tmp, 0.0025f);
       cameraVelocity = add_v3f32(cameraVelocity, tmp);
     }
-    if (keyboard_state[KEY_LEFT]) yaw -= 0.5f;
-    if (keyboard_state[KEY_RIGHT]) yaw += 0.5f;
-    if (keyboard_state[KEY_UP]) pitch += 0.5f;
-    if (keyboard_state[KEY_DOWN]) pitch -= 0.5f;
+    if (keyboard_state[NH_KEY_LEFT]) yaw -= 0.75f;
+    if (keyboard_state[NH_KEY_RIGHT]) yaw += 0.75f;
+    if (keyboard_state[NH_KEY_UP]) pitch += 0.75f;
+    if (keyboard_state[NH_KEY_DOWN]) pitch -= 0.75f;
     if (pitch < -89.9f) pitch = -89.9f;
     if (pitch > 89.9f) pitch = 89.9f;
-    if (keyboard_state[KEY_SPACE])
-      cameraVelocity.y += 0.005f;
-    if (keyboard_state[KEY_LSHIFT])
-      cameraVelocity.y -= 0.005f;
+    if (keyboard_state[NH_KEY_SPACE])
+      cameraVelocity.y += 0.0025f;
+    if (keyboard_state[NH_KEY_LSHIFT])
+      cameraVelocity.y -= 0.0025f;
     {
       v3f32 tmp;
       tmp = scale_v3f32(cameraVelocity, 0.2f);

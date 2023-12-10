@@ -44,8 +44,7 @@ test:
 	$(BUILD_DIR)/test
 	rm -rf $(BUILD_DIR)/test
 
-# If anyone is going to use this, feel free to add corefiles to the mix - it
-# just doesn't work for me on WSL2
+# Should use corefiles - I can't change my corepattern on WSL2 though
 gdb:
 	gcc -g $(TEST_DIR)/main.c -o $(BUILD_DIR)/test_gdb -lneushoorn -lm -lSDL2 -lSDL2_image -lGL -DDEBUG
 	gdb $(BUILD_DIR)/test_gdb

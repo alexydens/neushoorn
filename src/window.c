@@ -50,7 +50,7 @@ Window createWindow(
   state = arena_alloc(&window.arena, sizeof(WindowState));
 
   state->handle = SDL_CreateWindow(
-      title, x, y, width, height, SDL_WINDOW_OPENGL);
+      title, x, y, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
   window.width = width;
   window.height = height;
   window.running = true;
@@ -83,7 +83,9 @@ void initGL(Window* window) {
 void quitGL(Window* window) {
   RenderState* renderState =
     (RenderState*)(window->arena.start + sizeof(WindowState));
-  SDL_GL_DeleteContext(renderState->gl_context);
+  if (renderState->gl_context != NULL)
+    SDL_GL_DeleteContext(renderState->gl_context);
+  renderState->gl_context = NULL;
 }
 void makeCurrent(Window* window) {
   WindowState* windowState = (WindowState*)window->arena.start;
@@ -129,56 +131,56 @@ void updateWindows(Window** ppWindows, u32 numWindows) {
   }
 }
 void updateKeyboardState() {
-  keyboardState[KEY_A] = sdl_keys[SDL_SCANCODE_A];
-  keyboardState[KEY_B] = sdl_keys[SDL_SCANCODE_B];
-  keyboardState[KEY_C] = sdl_keys[SDL_SCANCODE_C];
-  keyboardState[KEY_D] = sdl_keys[SDL_SCANCODE_D];
-  keyboardState[KEY_E] = sdl_keys[SDL_SCANCODE_E];
-  keyboardState[KEY_F] = sdl_keys[SDL_SCANCODE_F];
-  keyboardState[KEY_G] = sdl_keys[SDL_SCANCODE_G];
-  keyboardState[KEY_H] = sdl_keys[SDL_SCANCODE_H];
-  keyboardState[KEY_I] = sdl_keys[SDL_SCANCODE_I];
-  keyboardState[KEY_J] = sdl_keys[SDL_SCANCODE_J];
-  keyboardState[KEY_K] = sdl_keys[SDL_SCANCODE_K];
-  keyboardState[KEY_L] = sdl_keys[SDL_SCANCODE_L];
-  keyboardState[KEY_M] = sdl_keys[SDL_SCANCODE_M];
-  keyboardState[KEY_N] = sdl_keys[SDL_SCANCODE_N];
-  keyboardState[KEY_O] = sdl_keys[SDL_SCANCODE_O];
-  keyboardState[KEY_P] = sdl_keys[SDL_SCANCODE_P];
-  keyboardState[KEY_Q] = sdl_keys[SDL_SCANCODE_Q];
-  keyboardState[KEY_R] = sdl_keys[SDL_SCANCODE_R];
-  keyboardState[KEY_S] = sdl_keys[SDL_SCANCODE_S];
-  keyboardState[KEY_T] = sdl_keys[SDL_SCANCODE_T];
-  keyboardState[KEY_U] = sdl_keys[SDL_SCANCODE_U];
-  keyboardState[KEY_V] = sdl_keys[SDL_SCANCODE_V];
-  keyboardState[KEY_W] = sdl_keys[SDL_SCANCODE_W];
-  keyboardState[KEY_X] = sdl_keys[SDL_SCANCODE_X];
-  keyboardState[KEY_Y] = sdl_keys[SDL_SCANCODE_Y];
-  keyboardState[KEY_Z] = sdl_keys[SDL_SCANCODE_Z];
+  keyboardState[NH_KEY_A] = sdl_keys[SDL_SCANCODE_A];
+  keyboardState[NH_KEY_B] = sdl_keys[SDL_SCANCODE_B];
+  keyboardState[NH_KEY_C] = sdl_keys[SDL_SCANCODE_C];
+  keyboardState[NH_KEY_D] = sdl_keys[SDL_SCANCODE_D];
+  keyboardState[NH_KEY_E] = sdl_keys[SDL_SCANCODE_E];
+  keyboardState[NH_KEY_F] = sdl_keys[SDL_SCANCODE_F];
+  keyboardState[NH_KEY_G] = sdl_keys[SDL_SCANCODE_G];
+  keyboardState[NH_KEY_H] = sdl_keys[SDL_SCANCODE_H];
+  keyboardState[NH_KEY_I] = sdl_keys[SDL_SCANCODE_I];
+  keyboardState[NH_KEY_J] = sdl_keys[SDL_SCANCODE_J];
+  keyboardState[NH_KEY_K] = sdl_keys[SDL_SCANCODE_K];
+  keyboardState[NH_KEY_L] = sdl_keys[SDL_SCANCODE_L];
+  keyboardState[NH_KEY_M] = sdl_keys[SDL_SCANCODE_M];
+  keyboardState[NH_KEY_N] = sdl_keys[SDL_SCANCODE_N];
+  keyboardState[NH_KEY_O] = sdl_keys[SDL_SCANCODE_O];
+  keyboardState[NH_KEY_P] = sdl_keys[SDL_SCANCODE_P];
+  keyboardState[NH_KEY_Q] = sdl_keys[SDL_SCANCODE_Q];
+  keyboardState[NH_KEY_R] = sdl_keys[SDL_SCANCODE_R];
+  keyboardState[NH_KEY_S] = sdl_keys[SDL_SCANCODE_S];
+  keyboardState[NH_KEY_T] = sdl_keys[SDL_SCANCODE_T];
+  keyboardState[NH_KEY_U] = sdl_keys[SDL_SCANCODE_U];
+  keyboardState[NH_KEY_V] = sdl_keys[SDL_SCANCODE_V];
+  keyboardState[NH_KEY_W] = sdl_keys[SDL_SCANCODE_W];
+  keyboardState[NH_KEY_X] = sdl_keys[SDL_SCANCODE_X];
+  keyboardState[NH_KEY_Y] = sdl_keys[SDL_SCANCODE_Y];
+  keyboardState[NH_KEY_Z] = sdl_keys[SDL_SCANCODE_Z];
 
-  keyboardState[KEY_1] = sdl_keys[SDL_SCANCODE_1];
-  keyboardState[KEY_2] = sdl_keys[SDL_SCANCODE_2];
-  keyboardState[KEY_3] = sdl_keys[SDL_SCANCODE_3];
-  keyboardState[KEY_4] = sdl_keys[SDL_SCANCODE_4];
-  keyboardState[KEY_5] = sdl_keys[SDL_SCANCODE_5];
-  keyboardState[KEY_6] = sdl_keys[SDL_SCANCODE_6];
-  keyboardState[KEY_7] = sdl_keys[SDL_SCANCODE_7];
-  keyboardState[KEY_8] = sdl_keys[SDL_SCANCODE_8];
-  keyboardState[KEY_9] = sdl_keys[SDL_SCANCODE_9];
-  keyboardState[KEY_0] = sdl_keys[SDL_SCANCODE_0];
+  keyboardState[NH_KEY_1] = sdl_keys[SDL_SCANCODE_1];
+  keyboardState[NH_KEY_2] = sdl_keys[SDL_SCANCODE_2];
+  keyboardState[NH_KEY_3] = sdl_keys[SDL_SCANCODE_3];
+  keyboardState[NH_KEY_4] = sdl_keys[SDL_SCANCODE_4];
+  keyboardState[NH_KEY_5] = sdl_keys[SDL_SCANCODE_5];
+  keyboardState[NH_KEY_6] = sdl_keys[SDL_SCANCODE_6];
+  keyboardState[NH_KEY_7] = sdl_keys[SDL_SCANCODE_7];
+  keyboardState[NH_KEY_8] = sdl_keys[SDL_SCANCODE_8];
+  keyboardState[NH_KEY_9] = sdl_keys[SDL_SCANCODE_9];
+  keyboardState[NH_KEY_0] = sdl_keys[SDL_SCANCODE_0];
 
-  keyboardState[KEY_LSHIFT] = sdl_keys[SDL_SCANCODE_LSHIFT];
-  keyboardState[KEY_RSHIFT] = sdl_keys[SDL_SCANCODE_RSHIFT];
-  keyboardState[KEY_LCTRL] = sdl_keys[SDL_SCANCODE_LCTRL];
-  keyboardState[KEY_RCTRL] = sdl_keys[SDL_SCANCODE_RCTRL];
-  keyboardState[KEY_SPACE] = sdl_keys[SDL_SCANCODE_SPACE];
-  keyboardState[KEY_TAB] = sdl_keys[SDL_SCANCODE_TAB];
-  keyboardState[KEY_ENTER] = sdl_keys[SDL_SCANCODE_RETURN];
+  keyboardState[NH_KEY_LSHIFT] = sdl_keys[SDL_SCANCODE_LSHIFT];
+  keyboardState[NH_KEY_RSHIFT] = sdl_keys[SDL_SCANCODE_RSHIFT];
+  keyboardState[NH_KEY_LCTRL] = sdl_keys[SDL_SCANCODE_LCTRL];
+  keyboardState[NH_KEY_RCTRL] = sdl_keys[SDL_SCANCODE_RCTRL];
+  keyboardState[NH_KEY_SPACE] = sdl_keys[SDL_SCANCODE_SPACE];
+  keyboardState[NH_KEY_TAB] = sdl_keys[SDL_SCANCODE_TAB];
+  keyboardState[NH_KEY_ENTER] = sdl_keys[SDL_SCANCODE_RETURN];
 
-  keyboardState[KEY_UP] = sdl_keys[SDL_SCANCODE_UP];
-  keyboardState[KEY_DOWN] = sdl_keys[SDL_SCANCODE_DOWN];
-  keyboardState[KEY_LEFT] = sdl_keys[SDL_SCANCODE_LEFT];
-  keyboardState[KEY_RIGHT] = sdl_keys[SDL_SCANCODE_RIGHT];
+  keyboardState[NH_KEY_UP] = sdl_keys[SDL_SCANCODE_UP];
+  keyboardState[NH_KEY_DOWN] = sdl_keys[SDL_SCANCODE_DOWN];
+  keyboardState[NH_KEY_LEFT] = sdl_keys[SDL_SCANCODE_LEFT];
+  keyboardState[NH_KEY_RIGHT] = sdl_keys[SDL_SCANCODE_RIGHT];
 }
 bool* getKeyboardState() {
   return keyboardState;
