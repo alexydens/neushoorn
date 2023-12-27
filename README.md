@@ -6,8 +6,12 @@
 1. Run `sudo apt-get install build-essential`.
 2. Git clone or similar to get this folder, cd into the folder.
 3. Run `sudo make build` to install the library.
-4. You can now include any header in the library in the form:
-    `#include <neushoorn/HEADER_NAME.h>`
+4. You can now include any header in the library in the form
+    `#include <neushoorn/HEADER_NAME.h>`.
 5. To link, add `-lneushoorn -lm` to your linker flags when compiling with
     `gcc`.
 6. You can also test the library with `make test` in this directory.
+
+### Windows or other platforms
+Just write your project in the source directory, and include with double quotes.
+Make sure to link any required libraries.
