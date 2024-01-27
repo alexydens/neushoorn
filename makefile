@@ -13,3 +13,4 @@ test:
 	&& cmake .. \
 	&& make     \
 	&& ./nh_test
+	make clean

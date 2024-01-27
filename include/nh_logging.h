@@ -15,6 +15,7 @@
     );\
   } while(0);
 #endif
+#define STRBOOL(VAL) ((VAL) ? "true" : "false")
 
 /* Base library */
 #include "nh_base.h"

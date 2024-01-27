@@ -1,5 +1,8 @@
 #include <nh_mem_chunk.h>
 
+/* C Stdlib Dependencies */
+#include <stdlib.h>
+
 /* Create a chunk allocator with num chunks of size bytes */
 ChunkAllocator create_chunk(u64 num, u64 size) {
   ChunkAllocator allocator;
@@ -40,13 +43,13 @@ u8* chunk_alloc(ChunkAllocator* allocator) {
       return res;
     }
   }
-  return -1;
+  return NULL;
 }
 /* Free 1 chunk on the allocator */
 void chunk_free(ChunkAllocator* allocator, u8* ptr) {
   u64 i;
-  u64 chunk_index = (ptr-start)/allocator->num_chunks;
-  for (i = 0; i < allocator->numChunks; i++) {
+  u64 chunk_index = (ptr-allocator->start)/allocator->num_chunks;
+  for (i = 0; i < allocator->num_chunks; i++) {
     if (allocator->freed[i] == -1)
       allocator->freed[i] = chunk_index;
   }
