@@ -1,0 +1,5 @@
+-ansi
+-pedantic
+-Wall
+-Wextra
+-I./include/
