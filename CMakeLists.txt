@@ -44,4 +44,8 @@ add_executable(nh_test ${NH_TEST_SOURCES})
 target_include_directories(nh_test PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
 # Neushoorn library
-target_link_libraries(nh_test ${PROJECT_BINARY_DIR}/libneushoorn.a)
+if (WIN32)
+  target_link_libraries(nh_test ${PROJECT_BINARY_DIR}/neushoorn.lib)
+else()
+  target_link_libraries(nh_test ${PROJECT_BINARY_DIR}/libneushoorn.a)
+endif()
