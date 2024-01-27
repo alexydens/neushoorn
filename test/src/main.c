@@ -1,13 +1,10 @@
 #include <nh_base.h>
-#include <nh_mem_arena.h>
-
-#include <stdio.h>
+#include <nh_logging.h>
 
 i32 main() {
-  ArenaAllocator arena;
-  u8* a;
-  arena = create_arena(0xffff);
-  a = arena_alloc(&arena, 0x10000);
-  arena_free(&arena);
+  nh_info("Hello world.");
+  nh_warn("Hello world.");
+  nh_error("Hello world.");
+  ASSERT(0);
   return 0;
 }

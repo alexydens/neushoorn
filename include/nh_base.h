@@ -109,9 +109,6 @@
 /* Get the minimum of the two values */
 #define MIN(A, B)           ((A) < (B) ? (A) : (B))
 
-/* The length of an array */
-#define ARRLEN(A)           (sizeof(A)/sizeof(*A))
-
 #define STRFROM_(S)         #S
 /* Turn into string */
 #define STRFROM(S)          STRFROM_(S)
@@ -197,11 +194,13 @@ static f64  e64     = 2.71828182846;
 /* -------------------------------------------------------------------------- */
 
 /* Infinity - Wrong case, I know */
-#define inf_f32 (1.0f / 0.0f)
-#define inf_f64 (1.0 / 0.0)
+#define inf_f32         (1.0f / 0.0f)
+#define neginf_f32      (-1.0f / 0.0f)
+#define inf_f64         (1.0 / 0.0)
+#define neginf_f64      (-1.0 / 0.0)
 
 /* Linear interpolation */
-#define LERP(A, B, X) ((A) < (B)) ? \
+#define LERP(A, B, X)   ((A) < (B)) ? \
   ((A) + ((B)-(A)*(X))) \
   : ((A) + ((A)-(B)*(X)))
 

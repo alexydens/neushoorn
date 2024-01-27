@@ -12,8 +12,8 @@ if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -lm -ansi -pedantic -Wall -Wextra")
 endif()
 
-# Define DEBUG
-add_compile_definitions(DEBUG)
+# Definitions for debug
+add_compile_definitions(ENABLE_ASSERT)
 
 ###############################################################################
 # Building the library ########################################################
