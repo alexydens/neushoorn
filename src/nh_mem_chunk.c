@@ -6,11 +6,14 @@
 /* Create a chunk allocator with num chunks of size bytes */
 ChunkAllocator create_chunk(u64 num, u64 size) {
   ChunkAllocator allocator;
+  u64 i;
 
   /* Populate fields */
   allocator.start = malloc(num * size);         /* The memory used */
   /* Available chunks before current */
   allocator.freed = malloc(num * sizeof(i64));
+  for (i = 0; i < num; i++)
+    allocator.freed[i] = -1;
   allocator.current = 0;                        /* Index of next chunk */
   allocator.num_chunks = num;                   /* How many chunks there are */
   allocator.chunk_size = size;                  /* The size of each chunk */
@@ -31,11 +34,13 @@ void destroy_chunk(ChunkAllocator* allocator) {
 /* Allocate 1 chunk on the allocator */
 u8* chunk_alloc(ChunkAllocator* allocator) {
   u64 i;
-  if (allocator->current <= allocator->num_chunks) {
+  /* If possible, choose from top */
+  if (allocator->current < allocator->num_chunks) {
     u8* res = allocator->start + (allocator->current * allocator->chunk_size);
     allocator->current++;
     return res;
   }
+  /* Otherwise, check from freed array */
   for (i = 0; i < allocator->num_chunks; i++) {
     if (allocator->freed[i] != -1) {
       u8* res = allocator->start + (allocator->freed[i] * allocator->chunk_size);
@@ -43,12 +48,13 @@ u8* chunk_alloc(ChunkAllocator* allocator) {
       return res;
     }
   }
+  /* Allocation failed: out of room */
   return NULL;
 }
 /* Free 1 chunk on the allocator */
 void chunk_free(ChunkAllocator* allocator, u8* ptr) {
   u64 i;
-  u64 chunk_index = (ptr-allocator->start)/allocator->num_chunks;
+  u64 chunk_index = (ptr-allocator->start)/allocator->chunk_size;
   for (i = 0; i < allocator->num_chunks; i++) {
     if (allocator->freed[i] == -1)
       allocator->freed[i] = chunk_index;

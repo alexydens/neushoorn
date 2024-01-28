@@ -120,5 +120,49 @@ void test_logging() {
   nh_error("Testing error!");
   nh_fatal("Testing fatal!");
 }
-void test_arena_alloc() {  }
-void test_chunk_alloc() {  }
+void test_arena_alloc() {
+  ArenaAllocator arena;
+  u32 i;
+  u64* a;
+  u64* b;
+  arena = create_arena(100);
+  a = (u64*)arena_alloc(&arena, 2 * sizeof(u64));
+  a[0] = 1;
+  a[1] = 2;
+  b = (u64*)arena_alloc(&arena, 3 * sizeof(u64));
+  b[0] = 1;
+  b[1] = 2;
+  b[2] = 3;
+  nh_info("Arena contents (Should be: 1, 2, 1, 2, 3):");
+  for (i = 0; i < 5; i++) {
+    nh_info("Arena contents at %d: %d", i, ((u64*)arena.start)[i]);
+  }
+  nh_info("End of arena contents.\n");
+  arena_free(&arena);
+}
+void test_chunk_alloc() {
+  ChunkAllocator chunker;
+  u64 i;
+  u64* a;
+  u64* b;
+  u64* c;
+  chunker = create_chunk(2, 2 * sizeof(u64));
+  a = (u64*)chunk_alloc(&chunker);
+  b = (u64*)chunk_alloc(&chunker);
+  ASSERT(chunk_alloc(&chunker) == NULL);
+  nh_info("Chunk full = NULL: success!");
+  chunk_free(&chunker, (u8*)b);
+  c = (u64*)chunk_alloc(&chunker);
+  ASSERT(c != NULL);
+  nh_info("Using freed array: success!");
+  a[0] = 1;
+  a[1] = 2;
+  c[0] = 1;
+  c[1] = 2;
+  nh_info("Chunker contents (Should be: 1, 2, 1, 2):");
+  for (i = 0; i < 4; i++) {
+    nh_info("Chunker contents at %d: %d", i, ((u64*)chunker.start)[i]);
+  }
+  nh_info("End of chunker contents.\n");
+  destroy_chunk(&chunker);
+}
