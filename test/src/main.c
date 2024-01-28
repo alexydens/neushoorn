@@ -7,20 +7,17 @@
 #include <nh_mem_alloc.h>     /* Allocation type enumeration */
 #include <nh_mem_arena.h>     /* Arena allocator */
 #include <nh_mem_chunk.h>     /* Chunk allocator */
-#include <nh_mem_string.h>    /* String without null-termination */
 
 /* To test each header */
 void test_base();
 void test_logging();
 void test_arena_alloc();
 void test_chunk_alloc();
-void test_string_utils();
 
 i32 main() {
   test_base();
   test_arena_alloc();
   test_chunk_alloc();
-  test_string_utils();
 
   test_logging(); /* Testing fatal involves a crash, so needs to come last */
   return 0;
@@ -125,4 +122,3 @@ void test_logging() {
 }
 void test_arena_alloc() {  }
 void test_chunk_alloc() {  }
-void test_string_utils() {  }

@@ -13,7 +13,6 @@
 ### Memory:
 #### Allocators:
 - [x] linear allocator.
-- [ ] chunk allocator. DONE, NOT TESTED, SO MAYBE NOT DONE?
-#### String:
-- [x] string struct.
-- [ ] string utils implementation (requires all allocators).
+- [x] chunk allocator.
+#### Dynamic arrays:
+- [ ] dynamic arrays.
