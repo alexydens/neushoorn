@@ -25,17 +25,17 @@ i32 main() {
 
 void test_base() {
   /* Compiler */
-  nh_info("Compiler GCC: %s", STRBOOL(NH_COMPILER_GCC));
-  nh_info("Compiler MSVC: %s\n", STRBOOL(NH_COMPILER_MSVC));
+  nh_info("Compiler GCC: %s", STRBOOL(COMPILER_GCC));
+  nh_info("Compiler MSVC: %s\n", STRBOOL(COMPILER_MSVC));
   /* Architecture */
-  nh_info("Architecture amd64: %s", STRBOOL(NH_CPU_AMD64));
-  nh_info("Architecture arm: %s", STRBOOL(NH_CPU_ARM));
-  nh_info("Architecture arm64: %s", STRBOOL(NH_CPU_ARM64));
-  nh_info("Architecture x86: %s\n", STRBOOL(NH_CPU_X86));
+  nh_info("Architecture amd64: %s", STRBOOL(CPU_AMD64));
+  nh_info("Architecture arm: %s", STRBOOL(CPU_ARM));
+  nh_info("Architecture arm64: %s", STRBOOL(CPU_ARM64));
+  nh_info("Architecture x86: %s\n", STRBOOL(CPU_X86));
   /* Operating System */
-  nh_info("Operating System Windows: %s", STRBOOL(NH_OS_WINDOWS));
-  nh_info("Operating System Linux: %s", STRBOOL(NH_OS_LINUX));
-  nh_info("Operating System MacOS: %s\n", STRBOOL(NH_OS_MACOS));
+  nh_info("Operating System Windows: %s", STRBOOL(OS_WINDOWS));
+  nh_info("Operating System Linux: %s", STRBOOL(OS_LINUX));
+  nh_info("Operating System MacOS: %s\n", STRBOOL(OS_MACOS));
 
   /* Clamp */
   ASSERT(CLAMP(11, 0, 10) == 10);

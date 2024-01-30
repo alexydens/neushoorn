@@ -11,86 +11,86 @@
 /* COMPILER */
 /* Check for GNU C Compiler */
 #if defined (__GNUC__)
-#   define NH_COMPILER_GCC        1
+#   define COMPILER_GCC        1
 #endif
 /* Check for Microsoft Visual C/C++ */
 #if defined (_MSC_VER)
-#   define NH_COMPILER_MSVC       1
+#   define COMPILER_MSVC       1
 #endif
 
 /* Put all unset to 0 */
-#if !defined (NH_COMPILER_GCC)
-#   define NH_COMPILER_GCC        0
+#if !defined (COMPILER_GCC)
+#   define COMPILER_GCC        0
 #endif
-#if !defined (NH_COMPILER_MSVC)
-#   define NH_COMPILER_MSVC       0
+#if !defined (COMPILER_MSVC)
+#   define COMPILER_MSVC       0
 #endif
 
 /* ARCHITECTURE */
 /* As defined by the GNU C Compiler */
-#if defined (NH_COMPILER_GCC)
+#if defined (COMPILER_GCC)
 #   if defined (__amd64__)
-#     define NH_CPU_AMD64         1
+#     define CPU_AMD64         1
 #   endif
 #   if defined (__arm__)
-#     define NH_CPU_ARM           1
+#     define CPU_ARM           1
 #   endif
 #   if defined (__aarch64__)
-#     define NH_CPU_ARM64         1
+#     define CPU_ARM64         1
 #   endif
 #   if defined (__i386__) || defined (__i486__) || defined (__i586__)\
   || defined (__i686__)
-#     define NH_CPU_X86           1
+#     define CPU_X86           1
 #   endif
 #endif
 /* As defined by the Microsoft Visual C/C++ compiler */
-#if defined (NH_COMPILER_MSVC)
+#if defined (COMPILER_MSVC)
 #   if defined (_M_AMD64)
-#     define NH_CPU_AMD64         1
+#     define CPU_AMD64         1
 #   endif
 #   if defined (_M_ARM)
-#     define NH_CPU_ARM           1
+#     define CPU_ARM           1
 #   endif
 #   if defined (_M_ARM64)
-#     define NH_CPU_ARM64         1
+#     define CPU_ARM64         1
 #   endif
 #   if defined (_M_I86) || defined (_M_IX86)
-#     define NH_CPU_X86           1
+#     define CPU_X86           1
 #   endif
 #endif
 /* Put all uset to 0 */
-#if !defined (NH_CPU_AMD64)
-#   define NH_CPU_AMD64           0
+#if !defined (CPU_AMD64)
+#   define CPU_AMD64           0
 #endif
-#if !defined (NH_CPU_ARM)
-#   define NH_CPU_ARM             0
+#if !defined (CPU_ARM)
+#   define CPU_ARM             0
 #endif
-#if !defined (NH_CPU_ARM64)
-#   define NH_CPU_ARM64           0
+#if !defined (CPU_ARM64)
+#   define CPU_ARM64           0
 #endif
-#if !defined (NH_CPU_X86)
-#   define NH_CPU_X86             0
+#if !defined (CPU_X86)
+#   define CPU_X86             0
 #endif
 
 /* OPERATING SYSTEM */
 #if defined (__gnu_linux__)
-#   define NH_OS_LINUX            1
+#   define OS_LINUX            1
 #endif
 #if defined (__APPLE__) /* I have reason to believe this is just for GCC... */
-#   define NH_OS_MACOS            1
+#   define OS_MACOS            1
 #endif
 #if defined (_WIN32)
-#   define NH_OS_WINDOWS          1
+#   define OS_WINDOWS          1
 #endif
 /* Put all unset to 0 */
-#if !defined (NH_OS_LINUX)
-#   define NH_OS_LINUX            0
+#if !defined (OS_LINUX)
+#   define OS_LINUX            0
 #endif
-#if !defined (NH_OS_MACOS)
-#   define NH_OS_MACOS            0
+#if !defined (OS_MACOS)
+#   define OS_MACOS            0
 #endif
-#if !defined (NH_OS_WINDOWS)
-#   define NH_OS_WINDOWS          0
+#if !defined (OS_WINDOWS)
+#   define OS_WINDOWS          0
 #endif
 
 /* -------------------------------------------------------------------------- */
