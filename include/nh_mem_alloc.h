@@ -20,18 +20,18 @@ typedef enum {
 #endif
   ARENA_ALLOC,            /* Arena allocator */
   CHUNK_ALLOC,            /* Chunk allocator */
-} AllocType;
+} nh_alloc_type;
 
 typedef struct {
-  AllocType allocType;
+  nh_alloc_type allocType;
   union {
     /* None needed for CSTD_ALLOC */
 #if defined(__cplusplus)
     /* None needed for CPPSTD_ALLOC*/
 #endif
-    ArenaAllocator* arena;  /* For arena allocator */
-    ChunkAllocator* chunk;  /* For chunk allocator */
+    arena_alloc_t* arena;  /* For arena allocator */
+    chunk_alloc_t* chunk;  /* For chunk allocator */
   } allocator;
-} Allocator;
+} allocator_t;
 
 #endif /* NH_MEM_ALLOC_H */

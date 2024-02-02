@@ -12,15 +12,15 @@ typedef struct {
   u64 current;    /* The current chunk index */
   u64 num_chunks; /* The maximum number of chunks to allocate */
   u64 chunk_size; /* The size of each chunk */
-} ChunkAllocator;
+} chunk_alloc_t;
 
 /* Create a chunk allocator with num chunks of size bytes */
-extern ChunkAllocator create_chunk(u64 num, u64 size);
+extern chunk_alloc_t create_chunk(u64 num, u64 size);
 /* Destroy a chunk allocator */
-extern void destroy_chunk(ChunkAllocator* allocator);
+extern void destroy_chunk(chunk_alloc_t* allocator);
 /* Allocate 1 chunk on the allocator */
-extern u8* chunk_alloc(ChunkAllocator* allocator);
+extern u8* chunk_alloc(chunk_alloc_t* allocator);
 /* Free 1 chunk on the allocator */
-extern void chunk_free(ChunkAllocator* allocator, u8* ptr);
+extern void chunk_free(chunk_alloc_t* allocator, u8* ptr);
 
 #endif /* NH_MEM_CHUNK_H */

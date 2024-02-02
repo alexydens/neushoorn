@@ -10,14 +10,14 @@ typedef struct {
   u8* start;
   u8* pos;
   u64 size;
-} ArenaAllocator;
+} arena_alloc_t;
 
 /* Create an arena of size bytes */
-extern ArenaAllocator create_arena(u64 size);
+extern arena_alloc_t create_arena(u64 size);
 /* Free the full arena */
-extern void arena_free(ArenaAllocator* arena);
+extern void arena_free(arena_alloc_t* arena);
 
 /* Allocate size bytes on the arena */
-extern u8* arena_alloc(ArenaAllocator* arena, u64 size);
+extern u8* arena_alloc(arena_alloc_t* arena, u64 size);
 
 #endif /* NH_MEM_ARENA_H */

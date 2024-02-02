@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 /* Create a chunk allocator with num chunks of size bytes */
-ChunkAllocator create_chunk(u64 num, u64 size) {
-  ChunkAllocator allocator;
+chunk_alloc_t create_chunk(u64 num, u64 size) {
+  chunk_alloc_t allocator;
   u64 i;
 
   /* Populate fields */
@@ -21,7 +21,7 @@ ChunkAllocator create_chunk(u64 num, u64 size) {
   return allocator;
 }
 /* Destroy a chunk allocator */
-void destroy_chunk(ChunkAllocator* allocator) {
+void destroy_chunk(chunk_alloc_t* allocator) {
   free(allocator->start);
   free(allocator->freed);
   allocator->start = NULL;
@@ -32,7 +32,7 @@ void destroy_chunk(ChunkAllocator* allocator) {
 }
 
 /* Allocate 1 chunk on the allocator */
-u8* chunk_alloc(ChunkAllocator* allocator) {
+u8* chunk_alloc(chunk_alloc_t* allocator) {
   u64 i;
   /* If possible, choose from top */
   if (allocator->current < allocator->num_chunks) {
@@ -52,7 +52,7 @@ u8* chunk_alloc(ChunkAllocator* allocator) {
   return NULL;
 }
 /* Free 1 chunk on the allocator */
-void chunk_free(ChunkAllocator* allocator, u8* ptr) {
+void chunk_free(chunk_alloc_t* allocator, u8* ptr) {
   u64 i;
   u64 chunk_index = (ptr-allocator->start)/allocator->chunk_size;
   for (i = 0; i < allocator->num_chunks; i++) {
