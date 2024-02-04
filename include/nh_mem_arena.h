@@ -5,6 +5,9 @@
 /* Base library */
 #include "nh_base.h"
 
+/* C Stdlib Depenedencies */
+#include <stdlib.h>     /* Heap allocation */
+
 /* Arena allocator struct */
 typedef struct {
   u8* start;

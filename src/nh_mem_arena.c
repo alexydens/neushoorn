@@ -1,8 +1,5 @@
 #include <nh_mem_arena.h>
 
-/* C Stdlib Depenedencies */
-#include <stdlib.h>
-
 arena_alloc_t create_arena(u64 size) {
   arena_alloc_t arena;
 

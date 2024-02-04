@@ -1,8 +1,5 @@
 #include <nh_mem_chunk.h>
 
-/* C Stdlib Dependencies */
-#include <stdlib.h>
-
 /* Create a chunk allocator with num chunks of size bytes */
 chunk_alloc_t create_chunk(u64 num, u64 size) {
   chunk_alloc_t allocator;

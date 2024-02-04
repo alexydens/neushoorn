@@ -5,6 +5,9 @@
 /* Base library */
 #include "nh_base.h"
 
+/* C Stdlib Dependencies */
+#include <stdlib.h>   /* Heap allocation */
+
 /* Chunk allocator struct */
 typedef struct {
   u8* start;      /* The main pointer */

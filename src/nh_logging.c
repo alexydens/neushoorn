@@ -1,11 +1,5 @@
 #include <nh_logging.h>
 
-/* C Stdlib Dependencies */
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
-#include <time.h>
-
 void nh_info(const char* fmt, ...) {
   va_list ap;
   time_t current_time;
@@ -69,5 +63,5 @@ void nh_fatal(const char* fmt, ...) {
   vprintf(fmt, ap);
   va_end(ap);
   printf("\n");
-  exit(-1);
+  exit(EXIT_FAILURE);
 }

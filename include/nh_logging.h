@@ -20,6 +20,12 @@
 /* Base library */
 #include "nh_base.h"
 
+/* C Stdlib Dependencies */
+#include <stdio.h>    /* For input and output */
+#include <stdarg.h>   /* For va_args */
+#include <stdlib.h>   /* For exit() */
+#include <time.h>     /* For current time */
+
 /* Print some info */
 extern void nh_info(const char* fmt, ...);
 /* Print a warning */
