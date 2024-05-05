@@ -89,6 +89,8 @@ the build directory.
 - `NH_WARN(fmt, ...)` - Log a warning.
 - `NH_ERROR(fmt, ...)` - Log an error.
 - `NH_FATAL(fmt, ...)` - Log a fatal error and exit.
+- `NH_LOG_ENTRY(fmt, ...)` - Log an entry in a bulleted list (or rather the
+following: `  ->`).
 - `BOOLSTR_COL(x)` - Convert a boolean to a string and color it (ANSI escape).
 `#if defined(DEBUG)`
 - `NH_ASSERT(x)` - Assert a condition.
