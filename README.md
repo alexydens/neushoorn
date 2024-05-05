@@ -59,3 +59,14 @@
 #### Misc
 - `NH_NULL` - Null pointer.
 - `NH_LOREM` - A sentence of lorem ipsum.
+### Macros
+- `NH_DEGTORAD` - Convert degrees to radians.
+- `NH_RADTODEG` - Convert radians to degrees.
+- `NH_ARRLEN` - Length of an array.
+- `NH_INDEX_XY` - Index an array using X and Y coordinates.
+- `NH_MIN` - Minimum of two values.
+- `NH_MAX` - Maximum of two values.
+- `NH_SWAP` - Swap two values.
+- `NH_CLAMP` - Clamp a value between two values.
+- `NH_ABS` - Absolute value of an integer.
+- `NH_LERP` - Linear interpolation.
