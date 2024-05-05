@@ -19,9 +19,9 @@
 
 /* Macro to swap two values */
 #define NH_SWAP(x, y)         do {\
-    __typeof(x) _tmp = (x);\
-    (x) = (y);\
-    (y) = _tmp;\
+    __typeof(x) _tmp = (x);       \
+    (x) = (y);                    \
+    (y) = _tmp;                   \
   } while (0)
 
 /* Macro to clamp a value between two bounds */

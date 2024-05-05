@@ -1,5 +1,18 @@
 # Neushoorn
 ## Neushoorn, a collection of headers in C11.
+### File structure
+- `nh_XXX.h` - Header file, nostdlib, C11 (in theory).
+- `ext`:
+    - `nh_XXX.h` - Header file, requires the library to be built.
+- `src`:
+    - `nh_XXX.c` - Implementation of header in `ext`.
+- `build`:
+    - `nh_XXX.o` - Object file, compiler implementation of header in `ext`.
+    - `libneushoorn.a` - Static library, contains all `nh_XXX.o`s.
+- `Makefile` - Contains rule `build` to build the library, and `clean` to clear
+the build directory.
+### Library Dependencies:
+- Nothing difficult at the moment, just stdlib, and `-lm`.
 ### Types
 #### Unsigned Integers
 - `u8` - unsigned integer (8 bits).
