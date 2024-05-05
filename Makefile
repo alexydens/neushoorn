@@ -10,7 +10,7 @@ EXT_DIR=ext
 
 # Object files
 OBJECTS = $(BUILD_DIR)/nh_logging.o
-#OBJECTS += $(BUILD_DIR)/nh_string.o
+OBJECTS += $(BUILD_DIR)/nh_arena.o
 
 # Pattern rule
 $(OBJECTS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
