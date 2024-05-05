@@ -84,3 +84,13 @@ the build directory.
 - `NH_CLAMP(x, min, max)` - Clamp a value between two values.
 - `NH_ABS(x)` - Absolute value of an integer.
 - `NH_LERP(x, y, t)` - Linear interpolation.
+### Logging
+- `NH_INFO(fmt, ...)` - Log some information.
+- `NH_WARN(fmt, ...)` - Log a warning.
+- `NH_ERROR(fmt, ...)` - Log an error.
+- `NH_FATAL(fmt, ...)` - Log a fatal error and exit.
+- `BOOLSTR_COL(x)` - Convert a boolean to a string and color it (ANSI escape).
+`#if defined(DEBUG)`
+- `NH_ASSERT(x)` - Assert a condition.
+- `NH_ASSERT_MSG(x, msg)` - Assert a condition and log a message (on fail).
+`#endif /* DEBUG */`

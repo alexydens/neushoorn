@@ -38,7 +38,7 @@ typedef enum nh_log_level_t {
     fmt,                          \
     ##__VA_ARGS__                 \
   )
-/* Log a fatal error */
+/* Log a fatal error and exit */
 #define NH_FATAL(fmt, ...) _nh_log(\
     NH_LOG_FATAL,                 \
     __FILE__,                     \
