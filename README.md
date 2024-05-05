@@ -92,7 +92,11 @@ the build directory.
 - `NH_LOG_ENTRY(fmt, ...)` - Log an entry in a bulleted list (or rather the
 following: `  ->`).
 - `BOOLSTR_COL(x)` - Convert a boolean to a string and color it (ANSI escape).
+##
 `#if defined(DEBUG)`
+##
 - `NH_ASSERT(x)` - Assert a condition.
 - `NH_ASSERT_MSG(x, msg)` - Assert a condition and log a message (on fail).
+##
 `#endif /* DEBUG */`
+##
