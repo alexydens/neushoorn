@@ -84,7 +84,7 @@ the build directory.
 - `NH_CLAMP(x, min, max)` - Clamp a value between two values.
 - `NH_ABS(x)` - Absolute value of an integer.
 - `NH_LERP(x, y, t)` - Linear interpolation.
-### Logging
+### Extensions - Logging
 - `NH_INFO(fmt, ...)` - Log some information.
 - `NH_WARN(fmt, ...)` - Log a warning.
 - `NH_ERROR(fmt, ...)` - Log an error.
@@ -100,3 +100,9 @@ following: `  ->`).
 ###
 `#endif /* DEBUG */`
 ###
+### Extensions - Arena Allocator
+- `nh_arena_t` - Arena allocator.
+- `nh_arena_t nh_arena_create(u32 size, u8 *start)` - Create an arena.
+- `void nh_arena_free(nh_arena_t *arena)` - Free an arena.
+- `void *nh_arena_alloc(nh_arena_t *arena, u32 size)` - Allocate memory in an
+arena.
