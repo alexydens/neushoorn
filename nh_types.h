@@ -30,6 +30,18 @@ typedef enum nh_month_t {
   NOVEMBER, DECEMBER
 } nh_month_t;
 /* STRUCTS */
+/* Time of day */
+typedef struct nh_time_t {
+  u8 hour;
+  u8 minute;
+  u8 second;
+} nh_time_t;
+/* Date */
+typedef struct nh_date_t {
+  u8 day;
+  nh_month_t month;
+  u16 year;
+} nh_date_t;
 /* Vector (2D, floats) */
 typedef struct nh_vec2_t {
   f32 x;
