@@ -168,7 +168,8 @@ void nh_window_update(nh_window_t window) {
   NH_ASSERT_MSG(window != NH_NULL, "Can't update window: window is NULL");
   _window_state_t *state = (_window_state_t*)window;
   /* state->running = wl_display_dispatch(state->display) != -1; */
-  wl_display_dispatch(state->display);
+  /* wl_display_dispatch(state->display); */
+  wl_display_dispatch_pending(state->display);
 }
 
 /* Some methods if Vulkan included */
