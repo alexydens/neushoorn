@@ -12,7 +12,11 @@
 - `Makefile` - Contains rule `build` to build the library, and `clean` to clear
 the build directory.
 ### Library Dependencies:
-- Nothing difficult at the moment, just stdlib, and `-lm`.
+- regular stuff - stdlib, libm.a.
+- for windowing - either one of:
+    - Win32 API (`windows.h`).
+    - Wayland (`wayland-client.h`).
+    - Xlib (`X11/Xlib.h`).
 ### Types
 #### Unsigned Integers
 - `u8` - unsigned integer (8 bits).
