@@ -38,7 +38,7 @@ void _nh_log(
   }
 }
 void _nh_log_entry(const char *fmt, ...) {
-  printf("\t->");
+  printf("\t-> ");
   va_list args;
   va_start(args, fmt);
   vprintf(fmt, args);
