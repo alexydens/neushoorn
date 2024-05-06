@@ -1,7 +1,7 @@
 # Compiler and linker flags
 #CFLAGS = -std=c11 -Wall -Wextra -Wpedantic -Werror
 CFLAGS = -std=c11 -Wall -Wextra -Werror
-CFLAGS += -DDEBUG -ggdb
+CFLAGS += -DDEBUG -ggdb -DNH_WINDOW_INCLUDE_VULKAN
 LDFLAGS = -ffast-math -lm
 
 # Directories
