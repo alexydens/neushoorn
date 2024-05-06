@@ -21,6 +21,7 @@ XDG_ITEMS += $(SRC_DIR)/xdg-shell-protocol.h
 
 # Pattern rule
 $(OBJECTS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(XDG_ITEMS)
+	mkdir -p build
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # XDG source file
