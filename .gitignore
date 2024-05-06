@@ -1,3 +1,4 @@
 .ccls-cache
 build/*
 src/xdg-*
+test/a.out
