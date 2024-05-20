@@ -29,6 +29,14 @@ typedef enum nh_month_t {
   JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER,
   NOVEMBER, DECEMBER
 } nh_month_t;
+/* Mouse button */
+typedef enum nh_mouse_button_t {
+  LEFT_MOUSE_BUTTON, MIDDLE_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON
+} nh_mouse_button_t;
+/* Graphics API */
+typedef enum nh_graphics_api_t {
+  OPENGL, VULKAN, DIRECTX, NOAPI
+} nh_graphics_api_t;
 /* STRUCTS */
 /* Time of day */
 typedef struct nh_time_t {
