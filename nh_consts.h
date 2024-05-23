@@ -7,9 +7,9 @@
 #define NH_E         2.71828182845904523536f  /* Euler's number */
 /* Size prefixes */
 #define NH_KB        1024                     /* 1 KiB in bytes */
-#define NH_MB        C_KB * 1024              /* 1 MiB in bytes */
-#define NH_GB        C_MB * 1024              /* 1 GiB in bytes */
-#define NH_TB        C_GB * 1024              /* 1 TiB in bytes */
+#define NH_MB        NH_KB * 1024             /* 1 MiB in bytes */
+#define NH_GB        NH_MB * 1024             /* 1 GiB in bytes */
+#define NH_TB        NH_GB * 1024             /* 1 TiB in bytes */
 /* Minimum and max for each type */
 #define NH_MIN_I8    -128                     /* Minimum for i8 */
 #define NH_MAX_I8     127                     /* Maximum for i8 */
