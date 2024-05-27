@@ -29,10 +29,10 @@
 /* A null pointer */
 #define NH_NULL      ((void *)0)              /* Null pointer */
 /* A sentence of lorem ipsum */
-#define NH_LOREM    "Lorem ipsum dolor sit " \
-                    "amet, qui minim labore" \
-                    "adipisicing minim sint" \
-                    "cillum sint consectetur"\
+#define NH_LOREM    "Lorem ipsum dolor sit "  \
+                    "amet, qui minim labore " \
+                    "adipisicing minim sint " \
+                    "cillum sint consectetur "\
                     "cupidatat."
 
 #endif /* NH_CONSTS_H */
